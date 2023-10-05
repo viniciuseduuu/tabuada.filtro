@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabuada e Lista com Negrito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        input, ul {
+            margin: 10px;
+        }
+
+        #tabuada {
+            margin-top: 0;
+        }
+
+        li {
+            list-style-type: none;
+            padding: 5px;
+        }
+
+        li strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabuada do Número:</h1>
+    <input type="number" id="numeroInput" oninput="mostrarTabuada()">
+    <div id="tabuada"></div>
+
+    <h1>Pesquisa na Lista:</h1>
+    <input type="text" id="pesquisaInput" oninput="realizarPesquisa()">
+    <ul id="lista">
+        <li>João</li>
+        <li>Claudio</li>
+        <li>Marcio</li>
+    </ul>
+
+    <script>
+        function mostrarTabuada() {
+            const numeroInput = document.getElementById('numeroInput');
+            const tabuadaDiv = document.getElementById('tabuada');
+            const numero = parseInt(numeroInput.value);
+
+            if (!isNaN(numero)) {
+                tabuadaDiv.innerHTML = '';
+                for (let i = 1; i <= 10; i++) {
+                    const resultado = numero * i;
+                    const p = document.createElement('p');
+                    p.textContent = `${numero} x ${i} = ${resultado}`;
+                    tabuadaDiv.appendChild(p);
+                }
+            } else {
+                tabuadaDiv.innerHTML = 'Digite um número válido.';
+            }
+        }
+
+        function realizarPesquisa() {
+            const pesquisaInput = document.getElementById('pesquisaInput');
+            const lista = document.getElementById('lista');
+            const termo = pesquisaInput.value.toLowerCase();
+            const itens = lista.getElementsByTagName('li');
+
+            for (let i = 0; i < itens.length; i++) {
+                const item = itens[i];
+                const nome = item.textContent.toLowerCase();
+
+                if (nome.includes(termo)) {
+                    item.innerHTML = `<strong>${item.textContent}</strong>`;
+                } else {
+                    item.innerHTML = item.textContent;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
